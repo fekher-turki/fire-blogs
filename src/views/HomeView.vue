@@ -1,18 +1,127 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <BlogPostView :post="welcomeScreen" />
+    <BlogPostView v-for="(post, index) in sampleBlogPost" :key="index" :post="post" />
+    <div class="blog-card-wrap">
+      <div class="container">
+        <h3>View More Recent Blogs</h3>
+        <div class="blog-cards">
+          <BlogCardView v-for="(post, index) in sampleBlogCards" :key="index" :post="post" />
+        </div>
+      </div>
+    </div>
+    <div class="update">
+      <div class="container">
+        <h2>Never miss a post. Register for your free account today!</h2>
+        <router-link class="router-button" to="#">
+          Register for FireBlogs <img :src="arrow" class="arrow arrow-light">
+        </router-link>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import BlogPostView from '../components/BlogPostView.vue'
+import BlogCardView from '../components/BlogCardView.vue'
 
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    HelloWorld
+    BlogPostView, BlogCardView
+  },
+  data() {
+    return {
+      arrow: require('../assets/Icons/arrow-right-light.svg'),
+      welcomeScreen: {
+        title: "Welcome!",
+        blogPost:
+          "Weekly blog articles with all things programming including HTML, CSS, Javascript and more. Register today to never miss a post",
+        welcomeScreen: true,
+        photo: "coding"
+      },
+      sampleBlogPost: [
+        {
+          title: "this is a Filtered Title!",
+          blogHTML: "This is a filter blog post title!",
+          blogCoverPhoto: "beautiful-stories"
+        },
+        {
+          title: "this is a Filtered Title 2!",
+          blogHTML: "This is a filter blog post title!",
+          blogCoverPhoto: "designed-for-everyone"
+        }
+      ],
+      sampleBlogCards: [
+        {
+          blogTitle: "Blog Card #1",
+          blogCoverPhoto: "stock-1",
+          blogDate: "May 1, 2021",
+        },
+        {
+          blogTitle: "Blog Card #2",
+          blogCoverPhoto: "stock-2",
+          blogDate: "May 1, 2021",
+        },
+        {
+          blogTitle: "Blog Card #3",
+          blogCoverPhoto: "stock-3",
+          blogDate: "May 1, 2021",
+        },
+        {
+          blogTitle: "Blog Card #4",
+          blogCoverPhoto: "stock-4",
+          blogDate: "May 1, 2021",
+        }
+      ],
+    }
   }
 }
 </script>
+<style lang="scss" scoped>
+.blog-card-wrap {
+  h3 {
+    font-weight: 300;
+    font-size: 28px;
+    margin-bottom: 32px;
+  }
+}
+
+.update {
+  .container {
+    padding: 100px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 800px) {
+      padding: 125px 25px;
+      flex-direction: row;
+    }
+  }
+
+  .router-button {
+    display: flex;
+    font-size: 14px;
+    text-decoration: none;
+
+    @media (min-width: 800px) {
+      margin-left: auto;
+    }
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 32px;
+    max-width: 425px;
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+
+    @media (min-width: 800px) {
+      text-align: initial;
+      font-size: 40px;
+    }
+  }
+}
+</style>
