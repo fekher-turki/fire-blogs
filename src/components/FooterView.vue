@@ -45,8 +45,12 @@ export default {
             twitter: require('../assets/Icons/twitter-brands.svg'),
             instagram: require('../assets/Icons/instagram-brands.svg'),
             linkedin: require('../assets/Icons/linkedin-brands.svg'),
-            user: false
         };
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        }
     },
 }
 </script>

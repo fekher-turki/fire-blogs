@@ -1,6 +1,6 @@
 <template>
     <div class="blog-card">
-        <div class="icons">
+        <div v-show="editPost" class="icons">
             <div class="icon">
                 <img class="edit" :src="editSVG" alt="">
             </div>
@@ -28,6 +28,11 @@ export default {
             arrowSVG: require('../assets/Icons/arrow-right-light.svg'),
             editSVG: require('../assets/Icons/edit-regular.svg'),
             deleteSVG: require('../assets/Icons/trash-regular.svg')
+        }
+    },
+    computed: {
+        editPost() {
+            return this.$store.state.editPost
         }
     }
 }

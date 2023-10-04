@@ -1,22 +1,58 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <NavigationView />
+      <NavigationView v-if="!navigation" />
       <router-view />
-      <FooterView />
+      <FooterView v-if="!navigation" />
     </div>
   </div>
 </template>
 
 <script>
+import firebase from "firebase/app";
+import "firebase/auth";
 import NavigationView from './components/NavigationView.vue'
 import FooterView from './components/FooterView.vue'
+// eslint-disable-next-line no-unused-vars
+import { watch } from 'vue'
 
 export default {
   name: "app",
   components: {
     NavigationView,
     FooterView
+  },
+  data() {
+    return {
+      navigation: null
+    }
+  },
+  created() {
+    firebase.auth().onAuthStateChanged((user) => {
+      this.$store.commit("updateUser", user);
+      if (user) {
+        this.$store.dispatch("getCurrentUser");
+      }
+    })
+    this.checkRoute();
+  },
+  methods: {
+    checkRoute() {
+      if (
+        this.$route.name === "login" ||
+        this.$route.name === "register" ||
+        this.$route.name === "forgotPassword"
+      ) {
+        this.navigation = true;
+        return;
+      }
+      this.navigation = false
+    }
+  },
+  watch: {
+    $route() {
+      this.checkRoute();
+    }
   }
 }
 </script>
@@ -120,6 +156,12 @@ button,
   pointer-events: none !important;
   cursor: none !important;
   background-color: rgba(128, 128, 128, 0.5) !important;
+}
+
+.error {
+  text-align: center;
+  font-size: 12px;
+  color: red;
 }
 
 .blog-card-wrap {

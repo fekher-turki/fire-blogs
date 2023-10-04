@@ -1,5 +1,5 @@
 <template>
-    <div class="blog-wrapper no-user">
+    <div class="blog-wrapper" :class="{ 'no-user': !user }">
         <div class="blog-content">
             <div>
                 <h2 v-if="post.welcomeScreen">{{ post.title }}</h2>
@@ -11,7 +11,7 @@
                 <router-link class="link link-light" v-if="post.welcomeScreen" to="#">
                     Login/Register<img :src="arrow" class="arrow arrow-light" style="fill: white">
                 </router-link>
-                <router-link class="linkt" v-else to="#">
+                <router-link class="link" v-else to="#">
                     View the Post<img :src="arrow" class="arrow">
                 </router-link>
             </div>
@@ -31,7 +31,12 @@ export default {
         return {
             arrow: require('../assets/Icons/arrow-right-light.svg'),
         }
-    }
+    },
+    computed: {
+        user() {
+            return this.$store.state.user;
+        }
+    },
 }
 </script>
 
