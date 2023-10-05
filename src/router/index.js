@@ -5,6 +5,8 @@ import NewPostView from '../views/NewPostView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import ForgotPasswordView from '../views/ForgotPasswordView.vue'
+import ProfileView from '../views/ProfileView.vue'
+import AdminView from '../views/AdminView.vue'
 
 const routes = [
   {
@@ -50,6 +52,22 @@ const routes = [
     component: ForgotPasswordView,
     meta: {
       title: 'Forgot Password'
+    }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView,
+    meta: {
+      title: 'Profile'
+    }
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    component: AdminView,
+    meta: {
+      title: 'Admin'
     }
   }
 ]
